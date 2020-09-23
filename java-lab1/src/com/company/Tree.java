@@ -25,7 +25,7 @@ public class Tree<T extends Comparable<T>>{
                 Node<T> parent;
                 while (true) {
                     parent = current;
-                    if (newNode.compareTo(current) < 0) {
+                    if (newNode.getValue().compareTo(current.getValue()) < 0) {
                         current = current.leftChild;
                         if (current == null) {
                             parent.leftChild = newNode;
@@ -47,60 +47,11 @@ public class Tree<T extends Comparable<T>>{
             result = false;
         return result;
     }
-//    public void addNode(T value) {
-//        Node<T> newNode = new Node<>(value);
-//        newNode.setIndex(index);
-//
-//        if (root == null) {
-//            root = newNode;
-//        }
-//        else {
-//            Node<T> current = root;
-//            Node<T> parent;
-//            while (true) {
-//                parent = current;
-//                if (newNode.compareTo(current) < 0) {
-//                    current = current.leftChild;
-//                    if (current == null) {
-//                        parent.leftChild = newNode;
-//                        return;
-//                    }
-//                }
-//                else {
-//                    current = current.rightChild;
-//                    if (current == null){
-//                        parent.rightChild = newNode;
-//                        return;
-//                    }
-//                }
-//            }
-//        }
-//        index++;
-//    }
-//
-//    public T findByIndex(int index) {
-//        T result = null;
-//        if (root == null) {
-//            result = null;
-//        }
-//        else {
-//            Node<T> current = root;
-//            while (current != null) {
-//                if (index < current.getIndex()) {
-//                    current = current.leftChild;
-//                } else {
-//                    current = current.rightChild;
-//                }
-//                result = current.getValue();
-//            }
-//        }
-//        return result;
-//    }
 
-    public T postOrder(Node<T> localNode, int index) {
+    public T inOrder(Node<T> localNode, int index) {
         if (localNode != null && localNode.getIndex() != index) {
-            postOrder(localNode.leftChild, index);
-            postOrder(localNode.rightChild, index);
+            inOrder(localNode.leftChild, index);
+            inOrder(localNode.rightChild, index);
         }
         else {
             return localNode.getValue();
@@ -108,10 +59,18 @@ public class Tree<T extends Comparable<T>>{
         return null;
     }
 
+    public void inOrderPrint(Node<T> localNode) {
+        if (localNode != null) {
+            inOrderPrint(localNode.leftChild);
+            System.out.print(localNode.getValue() + " ");
+            inOrderPrint(localNode.rightChild);
+        }
+    }
+
     public T findByIndex(int index) {
         T result = null;
         if (root != null) {
-            result = postOrder(root, index);
+            result = inOrder(root, index);
         }
         else {
             result = null;
@@ -119,7 +78,21 @@ public class Tree<T extends Comparable<T>>{
         return result;
     }
 
-    public void delete(int index) {
+    public boolean delete(int index) {
+        if (root == null) {
+            return false;
+        }
+        else {
+            Node<T> current = root;
+            Node<T> parent = root;
 
+        }
+
+        return false;
+    }
+
+    public Node<T> getSuccessor(Node<T> delNode) {
+
+        return null;
     }
 }

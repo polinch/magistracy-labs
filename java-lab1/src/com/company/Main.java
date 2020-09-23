@@ -6,5 +6,9 @@ public class Main {
 
     public static void main(String[] args) {
 	    Scanner scanner = new Scanner(System.in);
+        Tree<Integer> array;
+        int length;
+        length = scanner.nextInt();
+        array = new Tree<Integer>(length);
     }
 }

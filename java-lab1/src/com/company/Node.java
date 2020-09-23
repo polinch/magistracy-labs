@@ -1,6 +1,7 @@
 package com.company;
 
-public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
+public class Node<T extends Comparable<T>>{
+//        implements Comparable<Node<T>> {
     private int index;
     private T value;
     Node<T> leftChild;
@@ -22,9 +23,9 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
         return this.index;
     }
 
-    @Override
-    public int compareTo(Node<T> o) {
-        return value.compareTo(o.getValue());
-    }
+//    @Override
+//    public int compareTo(Node<T> o) {
+//        return value.compareTo(o.getValue());
+//    }
 }
 
