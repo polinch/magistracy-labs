@@ -10,5 +10,10 @@ public class Main {
         int length;
         length = scanner.nextInt();
         array = new Tree<Integer>(length);
+        array.insertNode(5);
+        array.insertNode(6);
+        array.insertNode(5);
+        array.print();
+
     }
 }
