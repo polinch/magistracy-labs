@@ -2,6 +2,7 @@ package com.company;
 
 import java.sql.PseudoColumnUsage;
 
+
 public class Tree<T extends Comparable<T>>{
     private Node<T> root;
     int index;
@@ -62,14 +63,18 @@ public class Tree<T extends Comparable<T>>{
 //    }
 
     public Node<T> inOrderNode(Node<T> localNode, int index) {
+        Node<T> buffRes = null;
         if (localNode != null && localNode.getIndex() != index) {
-            inOrderNode(localNode.leftChild, index);
-            inOrderNode(localNode.rightChild, index);
+            buffRes = inOrderNode(localNode.leftChild, index);
+            if (buffRes != null) {
+                return buffRes;
+            }
+            buffRes = inOrderNode(localNode.rightChild, index);
         }
         else {
             return localNode;
         }
-        return null;
+        return buffRes;
     }
 
     public void print() {
@@ -79,7 +84,7 @@ public class Tree<T extends Comparable<T>>{
     public void inOrderPrint(Node<T> localNode) {
         if (localNode != null) {
             inOrderPrint(localNode.leftChild);
-            System.out.print(localNode.getValue() + " ");
+            System.out.println("value is " + localNode.getValue() + " " + "index is " + localNode.getIndex() + " ");
             inOrderPrint(localNode.rightChild);
         }
     }
@@ -101,6 +106,9 @@ public class Tree<T extends Comparable<T>>{
         }
         Node<T> current = inOrderNode(root, index);
         Node<T> parent = getParentByChildIndex(index, root);
+
+        System.out.println(current);
+        System.out.println(parent);
 
         if (current == null) {
             return false;
@@ -147,14 +155,27 @@ public class Tree<T extends Comparable<T>>{
     }
 
     public  Node<T> getParentByChildIndex(int childIndex, Node<T> currentNode) {
-        if (currentNode.rightChild.getIndex() == childIndex || currentNode.leftChild.getIndex() == childIndex) {
+
+        Node<T> buff = null;
+        if (currentNode == null)
+            return buff;
+        if (currentNode.leftChild != null)
+            if (currentNode.leftChild.getIndex() == childIndex) {
             return currentNode;
         }
 
-        getParentByChildIndex(childIndex, currentNode.rightChild);
-        getParentByChildIndex(childIndex, currentNode.leftChild);
+        if (currentNode.rightChild != null)
+            if (currentNode.rightChild.getIndex() == childIndex) {
+            return currentNode;
+        }
 
-        return null;
+        buff = getParentByChildIndex(childIndex, currentNode.rightChild);
+        if (buff != null) {
+            return buff;
+        }
+
+        buff = getParentByChildIndex(childIndex, currentNode.leftChild);
+        return buff;
     }
 
     public Node<T> getSuccessor(Node<T> delNode) {
